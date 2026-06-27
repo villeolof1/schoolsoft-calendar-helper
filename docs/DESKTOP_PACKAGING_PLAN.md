@@ -11,23 +11,38 @@ Goal: make the app usable by normal parents without npm, terminals, or manual de
 5. SchoolSoft login opens in an app/browser window.
 6. Calendar data appears and stays local on that computer.
 
+## Current desktop status
+
+The repository now contains an initial Tauri desktop scaffold in `src-tauri/`.
+
+The current scaffold is useful for developer testing:
+
+```bash
+npm install
+npm run install-browsers
+npm run desktop:dev
+```
+
+`desktop:dev` starts the existing local Node server through Tauri's `beforeDevCommand`, then opens the calendar UI in a desktop window.
+
+This is not yet the final parent-friendly installer. The remaining hard part is bundling the Node/Playwright extractor as a Tauri sidecar so end users do not need Node.js, npm, or Playwright installed manually.
+
 ## Preferred route
 
 Use Tauri for a lightweight desktop shell around the existing frontend. The app still needs a local extraction component. The implementation should keep SchoolSoft credentials/session files on the user's machine and not introduce a central server.
 
-## Tasks
+Tauri's documented route for keeping a Node-based local backend is a sidecar: package the Node app as a self-contained binary and configure it as an external binary in `src-tauri/tauri.conf.json`.
 
-1. Split the current app into clear modules:
-   - frontend UI in `public/` or a future frontend build directory;
-   - local backend/extractor;
-   - local data storage.
-2. Add Tauri configuration.
-3. Make the Node/Playwright extractor a sidecar process or replace it with an equivalent Tauri-compatible local command flow.
-4. Store user data in the app data directory instead of the source folder.
-5. Add one-click local data deletion from the desktop app.
-6. Add GitHub Actions builds for Windows first.
-7. Add unsigned beta release.
-8. Consider code signing later for a smoother install experience.
+## Remaining tasks
+
+1. Move local data from the repository folder to the OS app-data directory.
+2. Split the server/extractor into a desktop sidecar entry point.
+3. Package the sidecar into a platform-specific executable.
+4. Configure Tauri `bundle.externalBin` for that sidecar.
+5. Make the desktop UI talk to the sidecar/local server without requiring terminal commands.
+6. Add GitHub Actions build for Windows installer first.
+7. Publish an unsigned beta release from GitHub Releases.
+8. Consider Windows/macOS code signing later for a smoother install experience.
 
 ## What not to do initially
 
