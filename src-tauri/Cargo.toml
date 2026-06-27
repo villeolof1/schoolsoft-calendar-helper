@@ -1,0 +1,16 @@
+[package]
+name = "schoolsoft_calendar_helper"
+version = "0.1.0"
+description = "Unofficial local-first SchoolSoft calendar helper"
+authors = ["villeolof1"]
+license = "MIT"
+repository = "https://github.com/villeolof1/schoolsoft-calendar-helper"
+edition = "2021"
+rust-version = "1.84"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-shell = "2"
