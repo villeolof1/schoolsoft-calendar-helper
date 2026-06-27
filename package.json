@@ -10,11 +10,18 @@
     "manual-capture": "node scripts/manual-capture.js",
     "start": "node server.js",
     "start:auto": "node server.js",
+    "start:no-auto": "node server.js --no-auto",
     "check": "node scripts/check.js",
-    "start:no-auto": "node server.js --no-auto"
+    "desktop:dev": "tauri dev",
+    "desktop:build": "tauri build"
   },
   "dependencies": {
     "playwright": "^1.56.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-shell": "^2"
   },
   "engines": {
     "node": ">=20"
@@ -22,10 +29,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_GITHUB_USERNAME/schoolsoft-calendar-helper.git"
+    "url": "https://github.com/villeolof1/schoolsoft-calendar-helper.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR_GITHUB_USERNAME/schoolsoft-calendar-helper/issues"
+    "url": "https://github.com/villeolof1/schoolsoft-calendar-helper/issues"
   },
-  "homepage": "https://YOUR_GITHUB_USERNAME.github.io/schoolsoft-calendar-helper/"
+  "homepage": "https://villeolof1.github.io/schoolsoft-calendar-helper/"
 }
