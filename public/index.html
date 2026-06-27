@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SchoolSoft kalender</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">S</div>
+        <div>
+          <p class="eyebrow">SchoolSoft · lokal kalender</p>
+          <h1>Prov & viktiga datum</h1>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="button subtle" href="/schoolsoft-tests.ics">ICS-feed</a>
+        <button id="loginButton" class="button subtle">Logga in</button>
+        <button id="trashButton" class="button subtle">Papperskorg</button>
+        <button id="newEventButton" class="button primary">+ Ny händelse</button>
+        <button id="syncNow" class="button primary">Synka nu</button>
+      </div>
+    </header>
+
+    <section class="summary-strip" aria-label="Översikt">
+      <article><span>Kommande</span><strong id="upcomingCount">–</strong></article>
+      <article><span>Nästa 7 dagar</span><strong id="weekCount">–</strong></article>
+      <article><span>Tungaste dag</span><strong id="heavyWeek">–</strong></article>
+      <article><span>Senast synkad</span><strong id="lastRun">–</strong></article>
+    </section>
+
+    <section class="calendar-shell">
+      <aside class="sidebar">
+        <div class="mini-panel sync-panel">
+          <div class="sync-row"><span id="syncDot" class="sync-dot"></span><strong id="syncStatus">Laddar…</strong></div>
+          <p id="coverageText">Visar senast hämtade SchoolSoft-data medan ny data hämtas i bakgrunden.</p>
+        </div>
+
+        <div class="mini-panel filters-panel">
+          <label>Sök
+            <input id="search" type="search" placeholder="Ämne, elev, lärare, prov…" autocomplete="off" />
+          </label>
+          <label>Elev
+            <select id="studentFilter"><option value="">Alla elever</option></select>
+          </label>
+          <label>Typ
+            <select id="typeFilter"><option value="">Alla typer</option></select>
+          </label>
+          <label>Ämne
+            <select id="subjectFilter"><option value="">Alla ämnen</option></select>
+          </label>
+          <label>Lärare
+            <select id="teacherFilter"><option value="">Alla lärare</option></select>
+          </label>
+          <label>Rum/sal
+            <select id="roomFilter"><option value="">Alla rum</option></select>
+          </label>
+          <label>Färger
+            <select id="colorBy">
+              <option value="type">Färgkoda typ av uppgift</option>
+              <option value="subject">Färgkoda ämnen (bara säkra ämnen)</option>
+            </select>
+          </label>
+          <label>Innehåll
+            <select id="scopeFilter">
+              <option value="important">Prov & viktiga datum</option>
+              <option value="all">Alla kalenderhändelser</option>
+              <option value="changed">Ändrat/borttaget</option>
+            </select>
+          </label>
+          <button id="clearFilters" class="button subtle wide">Rensa filter</button>
+        </div>
+
+        <div class="mini-panel legend-panel">
+          <h2>Färgnyckel</h2>
+          <div id="legend"></div>
+        </div>
+
+        <div class="mini-panel ics-panel">
+          <h2>Kalendersynk</h2>
+          <p class="muted">Länken följer dina nuvarande filter. Apple/Outlook kan prenumerera lokalt. Google Kalender kan importera ICS-filen, men kan inte prenumerera på <code>localhost</code> utan att appen hostas någonstans.</p>
+          <input id="icsLink" readonly value="http://localhost:3000/schoolsoft-tests.ics" />
+          <button id="copyIcs" class="button subtle wide">Kopiera länk</button>
+        </div>
+
+        <div class="mini-panel privacy-panel-small">
+          <h2>Integritet</h2>
+          <p class="muted">All SchoolSoft-data lagras lokalt på den här datorn. Vi har ingen server som tar emot kalenderdata, inloggning eller anteckningar.</p>
+          <button id="deleteLocalData" class="button danger subtle wide">Radera lokal data</button>
+        </div>
+      </aside>
+
+      <main class="calendar-main">
+        <section class="calendar-toolbar" aria-label="Kalenderstyrning">
+          <div class="date-nav">
+            <button id="prevPeriod" class="icon-button" aria-label="Föregående period">‹</button>
+            <button id="todayButton" class="button subtle compact">Idag</button>
+            <button id="nextPeriod" class="icon-button" aria-label="Nästa period">›</button>
+            <h2 id="periodTitle">–</h2>
+            <span id="selectedDatePill" class="selected-date-pill">Vald dag: –</span>
+          </div>
+          <div class="view-switch" role="tablist" aria-label="Kalendervy">
+            <button class="view-button active" data-view="month">Månad</button>
+            <button class="view-button" data-view="week">Vecka</button>
+            <button class="view-button" data-view="day">Dag</button>
+            <button class="view-button" data-view="list">Lista</button>
+            <button class="view-button" data-view="history">Historik</button>
+          </div>
+        </section>
+
+        <section id="selectionBar" class="selection-bar hidden" aria-live="polite"></section>
+
+        <section id="emptyState" class="empty hidden">
+          <h2>Inga händelser hittades</h2>
+          <p>Om sessionen gått ut, klicka <strong>Logga in</strong> uppe till höger. Annars kan du synka igen med knappen uppe till höger.</p>
+        </section>
+
+        <section id="monthView" class="calendar-view"></section>
+        <section id="weekView" class="calendar-view hidden"></section>
+        <section id="dayView" class="calendar-view hidden"></section>
+        <section id="listView" class="calendar-view hidden"></section>
+        <section id="historyView" class="calendar-view hidden"></section>
+      </main>
+    </section>
+  </div>
+
+  <div id="drawerBackdrop" class="drawer-backdrop hidden"></div>
+  <aside id="detailDrawer" class="detail-drawer hidden" aria-live="polite" aria-label="Detaljer">
+    <div class="drawer-header">
+      <div>
+        <p id="drawerEyebrow" class="eyebrow">Detaljer</p>
+        <h2 id="drawerTitle">–</h2>
+      </div>
+      <button id="closeDrawer" class="icon-button" aria-label="Stäng">×</button>
+    </div>
+    <div id="drawerContent" class="drawer-content"></div>
+  </aside>
+
+
+  <div id="privacyModal" class="privacy-modal hidden" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+    <div class="privacy-card">
+      <p class="eyebrow">Första start</p>
+      <h2 id="privacyTitle">Lokal och inofficiell SchoolSoft-vy</h2>
+      <p>Den här appen är byggd för att köras lokalt på din egen dator. Den är inte en officiell SchoolSoft-produkt.</p>
+      <ul>
+        <li><strong>SchoolSoft-data skickas inte till oss.</strong> Vi har ingen central server som tar emot kalenderdata, anteckningar, cookies eller inloggning.</li>
+        <li>Den lokala servern på <code>localhost</code> körs bara på din egen dator för att appen ska fungera.</li>
+        <li>SchoolSoft-lösenord sparas inte i appens kod eller konfiguration. Inloggning sker i SchoolSofts egen sida.</li>
+        <li>Kalenderdata sparas lokalt i appmappen, till exempel i <code>data/events.json</code>.</li>
+        <li>Anteckningar, egna händelser, markeringar och papperskorg sparas lokalt.</li>
+        <li>Om du publicerar eller hostar en ändrad version där andra loggar in behövs separat juridisk/privacy-granskning och tillstånd.</li>
+      </ul>
+      <label class="privacy-check"><input id="privacyAgreeCheck" type="checkbox" /> Jag förstår att detta är ett lokalt, inofficiellt verktyg. Jag använder bara SchoolSoft-data jag har rätt att se, och datan skickas inte till utvecklaren.</label>
+      <div class="privacy-actions">
+        <button id="privacyAccept" class="button primary" disabled>Fortsätt</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

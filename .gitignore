@@ -1,0 +1,30 @@
+# dependencies/build output
+node_modules/
+dist/
+build/
+coverage/
+.cache/
+
+# local SchoolSoft/browser/session data - never commit
+.playwright-user-data/
+data/*.json
+data/*.ics
+!data/.gitkeep
+snapshots/*
+!snapshots/.gitkeep
+schoolsoft.config.json
+
+# environment/secrets
+.env
+.env.*
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# future desktop packaging
+src-tauri/target/
+src-tauri/gen/
+*.log

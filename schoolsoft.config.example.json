@@ -1,0 +1,40 @@
+{
+  "baseUrl": "https://sms.schoolsoft.se/engelska/",
+  "loginUrl": "https://sms.schoolsoft.se/engelska/jsp/Login.jsp",
+  "timezone": "Europe/Stockholm",
+  "lookAheadWeeks": 20,
+  "lookBackWeeks": 26,
+  "syncIntervalMinutes": 60,
+  "provschemaUrl": "",
+  "calendarUrl": "https://sms.schoolsoft.se/engelska/react/#/student/calendar",
+  "icalUrl": "",
+  "studentNames": [],
+  "assessmentKeywords": [
+    "prov",
+    "test",
+    "läxförhör",
+    "diagnos",
+    "inlämning",
+    "redovisning",
+    "seminarium",
+    "examination",
+    "exam",
+    "omprov",
+    "assessment",
+    "quiz",
+    "klassrumsuppgift",
+    "classroom task",
+    "homework",
+    "läxa"
+  ],
+  "ignoreKeywords": [
+    "lunch",
+    "matsedel",
+    "lov",
+    "ledig"
+  ],
+  "headless": false,
+  "slowMoMs": 80,
+  "lookAheadMonths": 5,
+  "lookBackMonths": 5
+}
