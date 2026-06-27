@@ -1,16 +1,31 @@
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
-const configPath = path.join(root, 'schoolsoft.config.json');
 const examplePath = path.join(root, 'schoolsoft.config.example.json');
+const appSlug = 'schoolsoft-calendar-helper';
 
 export function projectRoot() {
   return root;
 }
 
+export function isDesktopMode() {
+  return /^(1|true|yes)$/i.test(String(process.env.SCHOOLSOFT_DESKTOP || process.env.SCHOOLSOFT_USE_APP_DATA || '')) || Boolean(process.env.SCHOOLSOFT_DATA_DIR);
+}
+
+export function appDataRoot() {
+  if (process.env.SCHOOLSOFT_DATA_DIR) return path.resolve(process.env.SCHOOLSOFT_DATA_DIR);
+  if (!isDesktopMode()) return root;
+  const home = os.homedir();
+  if (process.platform === 'win32') return path.join(process.env.APPDATA || path.join(home, 'AppData', 'Roaming'), appSlug);
+  if (process.platform === 'darwin') return path.join(home, 'Library', 'Application Support', appSlug);
+  return path.join(process.env.XDG_DATA_HOME || path.join(home, '.local', 'share'), appSlug);
+}
+
 export function loadConfig() {
+  const configPath = resolveDataPath('schoolsoft.config.json');
   const raw = fs.existsSync(configPath)
     ? fs.readFileSync(configPath, 'utf8')
     : fs.readFileSync(examplePath, 'utf8');
@@ -19,6 +34,7 @@ export function loadConfig() {
 }
 
 export function readRawConfig() {
+  const configPath = resolveDataPath('schoolsoft.config.json');
   const raw = fs.existsSync(configPath)
     ? fs.readFileSync(configPath, 'utf8')
     : fs.readFileSync(examplePath, 'utf8');
@@ -26,6 +42,8 @@ export function readRawConfig() {
 }
 
 export function saveConfigPatch(patch) {
+  ensureDirs();
+  const configPath = resolveDataPath('schoolsoft.config.json');
   const current = readRawConfig();
   const next = { ...current, ...patch };
   fs.writeFileSync(configPath, `${JSON.stringify(next, null, 2)}\n`, 'utf8');
@@ -57,8 +75,12 @@ export function resolveProjectPath(...parts) {
   return path.join(root, ...parts);
 }
 
+export function resolveDataPath(...parts) {
+  return path.join(appDataRoot(), ...parts);
+}
+
 export function ensureDirs() {
-  for (const dir of ['data', 'snapshots', '.playwright-user-data']) {
-    fs.mkdirSync(resolveProjectPath(dir), { recursive: true });
+  for (const dir of [resolveDataPath('data'), resolveDataPath('snapshots'), resolveDataPath('.playwright-user-data')]) {
+    fs.mkdirSync(dir, { recursive: true });
   }
 }
