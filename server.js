@@ -197,7 +197,7 @@ function isUsableEvent(event) {
   if (event.isUserEvent || event.source === 'manual') return true;
   const text = [event.title, event.description, event.rawText].join(' ');
   if (looksLikeCodeOrBrowserJunk(text)) return false;
-  if /^\s*(true|false|null|undefined|0|1)\s*$/i.test(String(event.title))) return false;
+  if (/^\s*(true|false|null|undefined|0|1)\s*$/i.test(String(event.title))) return false;
   return true;
 }
 
