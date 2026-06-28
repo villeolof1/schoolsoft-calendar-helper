@@ -31,7 +31,7 @@
 
         <div class="status-note">
           <strong>Tidigt testbygge</strong>
-          <span>Appen är inofficiell och osignerad just nu. Windows och macOS kan därför visa säkerhetsvarningar.</span>
+          <span>Appen är inofficiell och osignerad just nu. Windows och macOS kan därför visa säkerhetsvarningar. På Windows kan du vanligtvis klicka <strong>Mer information</strong> och sedan <strong>Kör ändå</strong>.</span>
         </div>
 
         <div id="downloads" class="install-panel">
@@ -134,6 +134,14 @@
 
     <section id="questions" class="section faq compact-section">
       <p class="eyebrow">Frågor</p>
+      <details open>
+        <summary>Windows visar “Windows protected your PC”. Hur startar jag ändå?</summary>
+        <p>Klicka <strong>More info</strong> / <strong>Mer information</strong>. Då brukar knappen <strong>Run anyway</strong> / <strong>Kör ändå</strong> visas. Klicka på den för att fortsätta. Varningen visas eftersom appen är ny och osignerad, inte nödvändigtvis för att Windows har hittat skadlig kod.</p>
+      </details>
+      <details open>
+        <summary>Varför visas SmartScreen-varningen?</summary>
+        <p>Appen är inte kodsignerad ännu och har ingen etablerad Microsoft SmartScreen-reputation. För en bredare publik behöver appen signeras med ett kodsigneringscertifikat.</p>
+      </details>
       <details open>
         <summary>Varför installeras appen inte helt automatiskt i webbläsaren?</summary>
         <p>Webbläsare får inte starta och installera program helt tyst. Knappen laddar ned installationsfilen. Därefter behöver du öppna filen och godkänna installationen på datorn.</p>
