@@ -10,8 +10,9 @@ An unofficial, local-first calendar helper for SchoolSoft. It extracts tests, as
 - The local dashboard is served from `localhost` on that same computer.
 - SchoolSoft login happens in SchoolSoft's own login page.
 - The app does not store SchoolSoft passwords in code or config.
-- Extracted data, notes, done markers, manual events, and trash state are stored locally in `data/`.
-- The saved browser session is stored locally in `.playwright-user-data/`.
+- In normal developer mode, extracted data, notes, done markers, manual events, and trash state are stored locally in `data/`.
+- In desktop mode, writable data and the saved browser session are stored in the user's OS app-data folder.
+- The saved browser session is local only.
 - No analytics are included.
 
 See [`PRIVACY.md`](./PRIVACY.md) for the detailed model.
@@ -20,7 +21,7 @@ See [`PRIVACY.md`](./PRIVACY.md) for the detailed model.
 
 This is an early local/open-source version. It is not affiliated with, endorsed by, or supported by SchoolSoft.
 
-The current version is still a Node/Playwright local app. The next packaging step is to wrap it as a normal desktop app installer, so non-technical parents do not need to install Node or run terminal commands.
+The project now has an initial Tauri desktop scaffold for developer testing. It is not yet the final parent-friendly installer; the remaining packaging work is to bundle the Node/Playwright backend as a desktop sidecar so end users do not need Node, npm, or Playwright installed manually.
 
 ## Features
 
@@ -43,7 +44,7 @@ The current version is still a Node/Playwright local app. The next packaging ste
 - Windows, macOS, or Linux.
 - A SchoolSoft parent/student account that is allowed to see the calendar information.
 
-## First run
+## First run: browser/local developer mode
 
 ```bash
 npm install
@@ -58,6 +59,18 @@ Then open:
 ```text
 http://localhost:3000
 ```
+
+## First run: desktop developer mode
+
+This opens the same app in a Tauri desktop window, while still using Node/npm during development:
+
+```bash
+npm install
+npm run install-browsers
+npm run desktop:dev
+```
+
+Desktop mode uses the OS app-data folder for writable data instead of the repository folder.
 
 ## Daily use
 
@@ -77,6 +90,8 @@ npm run login
 
 The app uses `schoolsoft.config.example.json` by default. For local customization, create `schoolsoft.config.json` next to it. That file is ignored by Git.
 
+In desktop mode, local config is read from the app-data folder if present, otherwise the example config in the app is used.
+
 Important fields:
 
 ```json
@@ -94,7 +109,7 @@ Do not put passwords or personal identity information in config files.
 
 ## Local output files
 
-These files are created locally and ignored by Git:
+These files are created locally and ignored by Git in normal developer mode:
 
 ```text
 data/events.json        extracted SchoolSoft events
@@ -104,6 +119,8 @@ data/events.ics         optional local calendar feed
 snapshots/*             local diagnostics only
 .playwright-user-data/  local browser session only
 ```
+
+In desktop mode, equivalent files are stored in the OS app-data directory.
 
 ## Calendar sync
 
