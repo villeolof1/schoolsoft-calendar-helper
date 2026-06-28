@@ -11,6 +11,7 @@
     "start": "node server.js",
     "start:auto": "node server.js",
     "start:no-auto": "node server.js --no-auto",
+    "start:desktop": "node scripts/desktop-sidecar.js",
     "check": "node scripts/check.js",
     "desktop:dev": "tauri dev",
     "desktop:build": "tauri build"
