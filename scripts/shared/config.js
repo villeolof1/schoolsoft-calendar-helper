@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const examplePath = path.join(root, 'schoolsoft.config.example.json');
 const appSlug = 'schoolsoft-calendar-helper';
+const writableTopLevelDirs = new Set(['data', 'snapshots', '.playwright-user-data']);
 
 export function projectRoot() {
   return root;
@@ -72,6 +73,13 @@ function normalizeConfig(cfg) {
 }
 
 export function resolveProjectPath(...parts) {
+  // Backwards compatibility: older code sometimes calls resolveProjectPath('data', ...)
+  // or resolveProjectPath('.playwright-user-data'). In desktop mode, route those
+  // writable paths to app-data while keeping source/bundle paths such as public/ in
+  // the project/app directory.
+  if (isDesktopMode() && parts.length && writableTopLevelDirs.has(parts[0])) {
+    return resolveDataPath(...parts);
+  }
   return path.join(root, ...parts);
 }
 
