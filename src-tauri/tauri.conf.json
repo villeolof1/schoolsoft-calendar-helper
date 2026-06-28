@@ -5,13 +5,15 @@
   "identifier": "com.villeolof1.schoolsoftcalendarhelper",
   "build": {
     "beforeDevCommand": "npm run start:desktop",
+    "beforeBuildCommand": "npm run build:sidecar",
     "devUrl": "http://localhost:3000",
-    "frontendDist": "../public"
+    "frontendDist": "http://localhost:3000"
   },
   "app": {
     "windows": [
       {
         "title": "SchoolSoft Calendar Helper",
+        "url": "http://localhost:3000",
         "width": 1280,
         "height": 860,
         "minWidth": 960,
@@ -23,6 +25,8 @@
   "bundle": {
     "active": true,
     "targets": ["nsis"],
-    "category": "Productivity"
+    "category": "Productivity",
+    "externalBin": ["binaries/schoolsoft-backend"],
+    "icon": ["icons/icon.ico"]
   }
 }
