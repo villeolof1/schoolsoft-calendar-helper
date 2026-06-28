@@ -10,6 +10,7 @@ import { looksLikeAssessment, normalizeKey } from './scripts/shared/parse.js';
 const config = loadConfig();
 const publicDir = resolveProjectPath('public');
 let syncRunning = false;
+let currentSyncChild = null;
 let lastSyncMessage = '';
 let lastRequestedMonth = '';
 let hourlyTimer = null;
@@ -28,7 +29,7 @@ const server = http.createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
 
     if (url.pathname === '/api/events') {
-      return sendJson(res, { events: readCombinedEvents(), userState: readUserState(), lastRun: readLastRun(), syncRunning, lastSyncMessage, lastRequestedMonth });
+      return sendJson(res, { events: readCombinedEvents(), userState: readUserState(), lastRun: readLastRun(), syncRunning, loginHelperRunning, lastSyncMessage, lastRequestedMonth });
     }
 
     if (url.pathname === '/schoolsoft-tests.ics') {
@@ -39,13 +40,18 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === '/api/sync' && req.method === 'POST') {
       const requestedMonth = url.searchParams.get('month') || '';
       const interactive = url.searchParams.get('interactive') === '1';
+      if (loginHelperRunning) {
+        const reason = 'Inloggningsfönster är öppet. Logga in klart och stäng fönstret själv, klicka sedan Synka nu.';
+        lastSyncMessage = reason;
+        return sendJson(res, { ok: true, started: false, syncRunning: false, loginHelperRunning: true, requestedMonth, reason });
+      }
       const started = runSync({ requestedMonth, reason: requestedMonth ? `coverage ${requestedMonth}` : 'manual', interactive });
-      return sendJson(res, { ok: true, started, syncRunning: started || syncRunning, requestedMonth, reason: started ? '' : 'Synkning pågår redan. Den här månaden köas i bakgrunden.' });
+      return sendJson(res, { ok: true, started, syncRunning: started || syncRunning, loginHelperRunning, requestedMonth, reason: started ? '' : lastSyncMessage || 'Synkning pågår redan. Den här månaden köas i bakgrunden.' });
     }
 
     if (url.pathname === '/api/open-login' && req.method === 'POST') {
       const started = openLoginHelper();
-      return sendJson(res, { ok: true, started, reason: started ? '' : 'Inloggningsfönster är redan öppet.' });
+      return sendJson(res, { ok: true, started, syncRunning, loginHelperRunning, reason: started ? '' : 'Inloggningsfönster är redan öppet.' });
     }
 
     if (url.pathname === '/api/delete-local-data' && req.method === 'POST') {
@@ -95,7 +101,6 @@ const server = http.createServer(async (req, res) => {
       writeUserState(state);
       return sendJson(res, { ok: true, userState: state });
     }
-
 
     if ((url.pathname === '/api/events-delete' || url.pathname === '/api/trash-events' || url.pathname === '/api/delete-events') && req.method === 'POST') {
       const body = await readJsonBody(req);
@@ -192,7 +197,7 @@ function isUsableEvent(event) {
   if (event.isUserEvent || event.source === 'manual') return true;
   const text = [event.title, event.description, event.rawText].join(' ');
   if (looksLikeCodeOrBrowserJunk(text)) return false;
-  if (/^\s*(true|false|null|undefined|0|1)\s*$/i.test(String(event.title))) return false;
+  if /^\s*(true|false|null|undefined|0|1)\s*$/i.test(String(event.title))) return false;
   return true;
 }
 
@@ -276,6 +281,10 @@ function contentTypeFor(filePath) {
 }
 
 function runSync({ requestedMonth = '', reason = 'manual', interactive = false } = {}) {
+  if (loginHelperRunning) {
+    lastSyncMessage = 'Inloggningsfönster är öppet. Synkning väntar tills du stänger login-fönstret.';
+    return false;
+  }
   if (syncRunning) {
     if (requestedMonth) pendingMonths.add(requestedMonth);
     return false;
@@ -294,15 +303,18 @@ function runSync({ requestedMonth = '', reason = 'manual', interactive = false }
   env.SCHOOLSOFT_HEADLESS = '0';
   if (interactive) env.SCHOOLSOFT_INTERACTIVE_LOGIN = '1';
   const child = spawn(process.execPath, ['scripts/extract.js'], { cwd: resolveProjectPath(), stdio: ['ignore', 'pipe', 'pipe'], env });
+  currentSyncChild = child;
   child.stdout.on('data', data => { process.stdout.write(data); lastSyncMessage = summarizeProcessMessage(String(data)); });
   child.stderr.on('data', data => { process.stderr.write(data); lastSyncMessage = summarizeProcessMessage(String(data)); });
   child.on('error', error => {
+    if (currentSyncChild === child) currentSyncChild = null;
     syncRunning = false;
     lastRequestedMonth = '';
     lastSyncMessage = `Synkning kunde inte startas: ${error.message}`;
     console.error(lastSyncMessage);
   });
   child.on('exit', code => {
+    if (currentSyncChild === child) currentSyncChild = null;
     syncRunning = false;
     lastRequestedMonth = '';
     lastSyncMessage = code === 0
@@ -318,9 +330,25 @@ function runSync({ requestedMonth = '', reason = 'manual', interactive = false }
   return true;
 }
 
+function stopCurrentSyncForLogin() {
+  pendingMonths.clear();
+  if (!currentSyncChild) {
+    syncRunning = false;
+    lastRequestedMonth = '';
+    return;
+  }
+  try { currentSyncChild.kill('SIGTERM'); } catch {}
+  currentSyncChild = null;
+  syncRunning = false;
+  lastRequestedMonth = '';
+  lastSyncMessage = 'Avbröt synkning så att du kan logga in i lugn och ro.';
+}
+
 function openLoginHelper() {
   if (loginHelperRunning) return false;
+  stopCurrentSyncForLogin();
   loginHelperRunning = true;
+  lastSyncMessage = 'Inloggningsfönster öppet. Slutför inloggningen där och stäng sedan fönstret själv.';
   const env = { ...process.env, SCHOOLSOFT_HEADLESS: '0' };
   const child = spawn(process.execPath, ['scripts/browser-login.js'], { cwd: resolveProjectPath(), stdio: ['ignore', 'pipe', 'pipe'], env });
   child.stdout.on('data', data => process.stdout.write(data));
@@ -344,12 +372,9 @@ function buildSyncMonthList(requestedMonth, reason) {
     ? requestedMonth
     : `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
   const wanted = monthsAround(target, 5, 5);
-  // Manual sync refreshes the visible month even if it was already loaded.
   const list = [];
   if (reason === 'manual' || requestedMonth) list.push(target);
   for (const m of wanted) if (!loaded.has(m) && !list.includes(m)) list.push(m);
-  // Load a broad window in the background: target first, then nearby months.
-  // The extractor writes partial results month-by-month, so the UI can update before the full run is done.
   return list.slice(0, reason === 'hourly' ? 8 : 25);
 }
 
