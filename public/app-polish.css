@@ -1,0 +1,272 @@
+/* App polish: clearer hierarchy, faster-feeling controls, less web-page noise. */
+:root {
+  --bg: #f5f7fb;
+  --panel: #ffffff;
+  --panel-soft: #f7f8fc;
+  --text: #101828;
+  --muted: #667085;
+  --muted-2: #98a2b3;
+  --line: #e6e9f2;
+  --line-strong: #cfd5e5;
+  --accent: #365cff;
+  --accent-soft: #eef2ff;
+  --shadow: 0 10px 28px rgba(16, 24, 40, 0.07);
+  --shadow-soft: 0 4px 14px rgba(16, 24, 40, 0.05);
+  --radius-xl: 20px;
+  --radius: 14px;
+  --radius-sm: 10px;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--bg);
+  font-synthesis-weight: none;
+}
+
+.app-shell {
+  background: var(--bg);
+}
+
+.topbar,
+.calendar-toolbar,
+.summary-strip article,
+.mini-panel,
+.calendar-main,
+.month-grid-with-weeks,
+.week-column,
+.detail-drawer,
+.privacy-card {
+  box-shadow: var(--shadow-soft);
+}
+
+.topbar {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 7px 8px;
+  backdrop-filter: blur(14px);
+}
+
+.brand-mark {
+  box-shadow: none;
+  background: linear-gradient(135deg, #1f2937, #365cff);
+}
+
+h1 {
+  color: #111827;
+}
+
+.button,
+.icon-button,
+.view-button,
+.compact-event,
+.more-button,
+.week-event,
+.agenda-main,
+.week-heading,
+.week-number-cell {
+  transform: translateZ(0);
+  transition: background 90ms ease, border-color 90ms ease, box-shadow 90ms ease, transform 90ms ease, color 90ms ease;
+}
+
+@media (hover: hover) {
+  .button:hover,
+  .icon-button:hover,
+  .view-button:hover,
+  .compact-event:hover,
+  .more-button:hover,
+  .week-event:hover,
+  .agenda-main:hover,
+  .week-heading:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.button:active,
+.icon-button:active,
+.view-button:active,
+.compact-event:active,
+.more-button:active,
+.week-event:active,
+.agenda-main:active,
+.week-heading:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.button.primary {
+  background: #111827;
+  box-shadow: 0 8px 18px rgba(16, 24, 40, 0.16);
+}
+.button.subtle,
+.icon-button {
+  background: #fff;
+  border-color: var(--line);
+}
+.button.subtle:hover,
+.icon-button:hover {
+  border-color: var(--line-strong);
+  background: #f9fafb;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(54, 92, 255, 0.28);
+  outline-offset: 2px;
+}
+
+.summary-strip article {
+  background: #fff;
+  border-color: var(--line);
+}
+.summary-strip span,
+.filters-panel label,
+.selected-date-pill,
+.week-heading span,
+.week-heading small {
+  color: #667085;
+}
+.summary-strip strong {
+  color: #111827;
+}
+
+.calendar-shell {
+  align-items: start;
+}
+
+.mini-panel,
+.calendar-main {
+  background: #fff;
+  border-color: var(--line);
+}
+.calendar-main {
+  border-radius: 20px;
+}
+.calendar-toolbar {
+  background: rgba(255,255,255,0.94);
+  border-radius: 20px 20px 0 0;
+}
+.view-switch {
+  background: #f2f4f7;
+  border-color: #eaecf0;
+}
+.view-button.active {
+  background: #111827;
+  box-shadow: 0 5px 14px rgba(17,24,39,0.16);
+}
+
+input,
+select,
+textarea {
+  background: #fff;
+  border-color: #dfe4ef;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(54, 92, 255, 0.10);
+}
+
+.sync-row strong {
+  font-size: 0.86rem;
+}
+.sync-dot {
+  flex: 0 0 auto;
+}
+
+.month-grid-with-weeks {
+  border-color: #dfe4ef;
+  background: #dfe4ef;
+}
+.month-week-row {
+  background: #dfe4ef;
+}
+.week-number-cell {
+  background: #f3f5fa;
+}
+.month-cell {
+  background: #fff;
+}
+.month-cell.weekend {
+  background: #f8f9fd;
+}
+.month-cell.today {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+.month-cell.selected-day {
+  box-shadow: inset 0 0 0 2px rgba(54, 92, 255, 0.42);
+}
+.day-button {
+  border-radius: 999px;
+}
+.day-number {
+  font-weight: 900;
+}
+.compact-event,
+.more-button {
+  border-left: 3px solid var(--event-color, var(--accent));
+}
+.compact-event {
+  background: var(--event-bg, var(--accent-soft));
+}
+.more-button {
+  background: #fff;
+}
+
+.week-column {
+  background: #fbfcff;
+}
+.week-heading {
+  background: #fff;
+}
+.week-event {
+  box-shadow: none;
+}
+
+.empty {
+  border: 1px dashed var(--line-strong);
+  background: #fbfcff;
+}
+
+.detail-drawer {
+  border-left: 1px solid var(--line);
+}
+.drawer-header {
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+.drawer-content {
+  background: #fbfcff;
+}
+
+.privacy-card {
+  border: 1px solid var(--line);
+}
+
+/* Make dense mode feel intentional rather than cramped. */
+@media (max-width: 1050px), (max-height: 739px) {
+  .calendar-main {
+    order: 1;
+  }
+  .sidebar {
+    order: 2;
+  }
+  .mini-panel {
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
