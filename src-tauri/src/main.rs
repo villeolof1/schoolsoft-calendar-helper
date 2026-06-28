@@ -9,9 +9,11 @@ fn main() {
             if !cfg!(debug_assertions) {
                 let app_handle = app.handle().clone();
                 tauri::async_runtime::spawn(async move {
+                    // Tauri's Rust sidecar API expects only the binary filename,
+                    // not the full path used in bundle.externalBin.
                     let sidecar = app_handle
                         .shell()
-                        .sidecar("binaries/schoolsoft-backend")
+                        .sidecar("schoolsoft-backend")
                         .expect("failed to create SchoolSoft backend sidecar command");
 
                     let (mut rx, _child) = sidecar
