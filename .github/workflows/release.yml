@@ -1,0 +1,70 @@
+name: Release Windows installer
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  windows-installer:
+    name: Build Windows installer
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check project
+        run: npm run check
+
+      - name: Build desktop installer
+        run: npm run desktop:build
+
+      - name: Prepare installer asset
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem "src-tauri/target/release/bundle/nsis" -Filter "*.exe" | Select-Object -First 1
+          if (-not $installer) { throw "No NSIS installer was produced." }
+          New-Item -ItemType Directory -Force -Path "dist-release" | Out-Null
+          Copy-Item $installer.FullName "dist-release/SchoolSoft-Calendar-Helper-Setup.exe" -Force
+          Get-ChildItem "dist-release"
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SchoolSoft-Calendar-Helper-Windows-Setup
+          path: dist-release/SchoolSoft-Calendar-Helper-Setup.exe
+          if-no-files-found: error
+
+      - name: Create GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist-release/SchoolSoft-Calendar-Helper-Setup.exe
+          generate_release_notes: true
+          body: |
+            ## SchoolSoft Calendar Helper
+
+            Unofficial, local-first Windows installer.
+
+            ### Important
+            - This is not an official SchoolSoft product.
+            - SchoolSoft data stays on your computer when using this app as distributed here.
+            - The app is currently unsigned, so Windows may show a SmartScreen warning.
+            - This is still an early release; test with non-critical data first.
