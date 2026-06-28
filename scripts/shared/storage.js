@@ -1,10 +1,10 @@
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { resolveProjectPath, ensureDirs } from './config.js';
+import { resolveDataPath, ensureDirs } from './config.js';
 
-export const eventsPath = resolveProjectPath('data', 'events.json');
-export const lastRunPath = resolveProjectPath('data', 'last-run.json');
-export const userStatePath = resolveProjectPath('data', 'user-state.json');
+export const eventsPath = resolveDataPath('data', 'events.json');
+export const lastRunPath = resolveDataPath('data', 'last-run.json');
+export const userStatePath = resolveDataPath('data', 'user-state.json');
 
 export function stableHash(value) {
   return crypto.createHash('sha256').update(String(value)).digest('hex').slice(0, 16);
@@ -123,7 +123,7 @@ function hasMeaningfulChange(oldEvent, newEvent) {
 export function saveSnapshot(name, content, extension = 'html') {
   ensureDirs();
   const safeName = name.replace(/[^a-z0-9_-]+/gi, '-').replace(/-+/g, '-').slice(0, 80);
-  const file = resolveProjectPath('snapshots', `${new Date().toISOString().replace(/[:.]/g, '-')}-${safeName}.${extension}`);
+  const file = resolveDataPath('snapshots', `${new Date().toISOString().replace(/[:.]/g, '-')}-${safeName}.${extension}`);
   fs.writeFileSync(file, content, 'utf8');
   return file;
 }
