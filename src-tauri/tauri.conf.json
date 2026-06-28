@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "identifier": "com.villeolof1.schoolsoftcalendarhelper",
   "build": {
-    "beforeDevCommand": "npm run start:no-auto",
+    "beforeDevCommand": "npm run start:desktop",
     "devUrl": "http://localhost:3000",
     "frontendDist": "../public"
   },
