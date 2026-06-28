@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Installera SchoolSoft Calendar Helper</title>
-  <meta name="description" content="Ladda ned SchoolSoft Calendar Helper för Windows. En lokal, inofficiell app som hjälper elever och föräldrar att få bättre överblick över viktiga SchoolSoft-datum." />
+  <meta name="description" content="Ladda ned SchoolSoft Calendar Helper för Windows, macOS och Linux. En lokal, inofficiell app som hjälper elever och föräldrar att få bättre överblick över viktiga SchoolSoft-datum." />
   <link rel="stylesheet" href="./site.css" />
 </head>
 <body>
@@ -15,7 +15,7 @@
         <span>SchoolSoft Calendar Helper</span>
       </a>
       <div class="nav-links">
-        <a class="download-link" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe" data-install-button>Ladda ned appen</a>
+        <a class="download-link" href="#downloads">Ladda ned appen</a>
         <a href="#how">Så fungerar det</a>
         <a href="#privacy">Integritet</a>
         <a href="https://github.com/villeolof1/schoolsoft-calendar-helper">Källkod</a>
@@ -24,22 +24,49 @@
 
     <section class="install-hero" aria-label="Installera appen">
       <div class="install-copy">
-        <p class="eyebrow">Windows-app · lokal · inofficiell</p>
+        <p class="eyebrow">Windows · macOS · Linux · lokal · inofficiell</p>
         <h1>Installera en tydligare SchoolSoft-kalender.</h1>
         <p class="lead">En lokal app för elever och föräldrar som vill se prov, inlämningar, redovisningar och viktiga datum snabbare och tydligare.</p>
 
-        <div class="install-panel">
-          <a class="install-button" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe" download data-install-button>
-            <span>Installera på Windows</span>
-            <small>Laddar ned SchoolSoft-Calendar-Helper-Setup.exe</small>
-          </a>
-          <p id="installHelp" class="install-help" hidden>Nedladdningen bör starta nu. Öppna filen <strong>SchoolSoft-Calendar-Helper-Setup.exe</strong> i webbläsarens nedladdningar och följ installationsrutan.</p>
-          <p class="fallback-link">Fungerar inte knappen? <a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">Öppna senaste release på GitHub</a>.</p>
+        <div id="downloads" class="install-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Välj din dator</p>
+              <h2>Ladda ned rätt installer</h2>
+            </div>
+            <a class="plain-link" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">Visa alla filer på GitHub</a>
+          </div>
+
+          <div class="platform-grid" aria-label="Nedladdningar per plattform">
+            <a class="platform-card recommended" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe" download data-install-button data-platform="windows" data-file="SchoolSoft-Calendar-Helper-Setup.exe">
+              <span class="platform-label">Windows</span>
+              <strong>Installera på Windows</strong>
+              <small>Laddar ned .exe-installer</small>
+            </a>
+            <a class="platform-card" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-macOS.dmg" download data-install-button data-platform="macos" data-file="SchoolSoft-Calendar-Helper-macOS.dmg">
+              <span class="platform-label">macOS</span>
+              <strong>Installera på Mac</strong>
+              <small>Laddar ned .dmg-fil</small>
+            </a>
+            <a class="platform-card" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Linux.AppImage" download data-install-button data-platform="linux" data-file="SchoolSoft-Calendar-Helper-Linux.AppImage">
+              <span class="platform-label">Linux</span>
+              <strong>Ladda ned AppImage</strong>
+              <small>Fungerar på många Linux-system</small>
+            </a>
+            <a class="platform-card" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Linux.deb" download data-install-button data-platform="linux-deb" data-file="SchoolSoft-Calendar-Helper-Linux.deb">
+              <span class="platform-label">Linux</span>
+              <strong>Ladda ned .deb</strong>
+              <small>För Debian/Ubuntu-baserade system</small>
+            </a>
+          </div>
+
+          <p id="installHelp" class="install-help" hidden>Nedladdningen bör starta nu. Öppna den nedladdade installationsfilen och följ instruktionerna för din dator.</p>
+          <p class="fallback-link">Får du 404? Då finns ingen publicerad release med den filen ännu. <a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">Öppna senaste release på GitHub</a>.</p>
         </div>
 
         <ol class="quick-steps" aria-label="Snabb installation">
-          <li><strong>1. Klicka Installera</strong><span>Installationsfilen laddas ned.</span></li>
-          <li><strong>2. Öppna .exe-filen</strong><span>Windows kan visa en varning eftersom appen inte är signerad ännu.</span></li>
+          <li><strong>1. Välj din dator</strong><span>Windows, Mac eller Linux.</span></li>
+          <li><strong>2. Öppna filen</strong><span>Windows/macOS kan visa varning eftersom appen inte är signerad ännu.</span></li>
           <li><strong>3. Logga in i SchoolSoft</strong><span>Appen öppnar SchoolSofts egen inloggningssida.</span></li>
         </ol>
       </div>
@@ -64,7 +91,7 @@
       <p class="eyebrow">Så fungerar det</p>
       <h2>Appen körs på din egen dator.</h2>
       <div class="steps">
-        <article><strong>1</strong><h3>Installera</h3><p>Ladda ned Windows-installern och öppna appen från Start-menyn.</p></article>
+        <article><strong>1</strong><h3>Installera</h3><p>Ladda ned rätt fil för Windows, macOS eller Linux och öppna appen.</p></article>
         <article><strong>2</strong><h3>Logga in</h3><p>Inloggningen sker på SchoolSofts egen sida. Appen sparar inte lösenord i kod eller konfiguration.</p></article>
         <article><strong>3</strong><h3>Få överblick</h3><p>Se viktiga datum, markera saker som klara, lägg till anteckningar och visa sparad lokal data direkt.</p></article>
       </div>
@@ -86,13 +113,13 @@
 
     <section id="install" class="section split install-box">
       <div>
-        <p class="eyebrow">Ladda ned</p>
-        <h2>Senaste Windows-installer.</h2>
-        <p>Knappen laddar ned filen <strong>SchoolSoft-Calendar-Helper-Setup.exe</strong>. Öppna den nedladdade filen för att installera appen.</p>
-        <p class="installer-url"><strong>Direktlänk:</strong><br><a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe">github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe</a></p>
+        <p class="eyebrow">Filer</p>
+        <h2>Alla nedladdningar publiceras i GitHub Releases.</h2>
+        <p>När en ny version publiceras skapas separata filer för Windows, macOS och Linux. Direktknapparna ovan pekar på dessa filer.</p>
+        <p class="installer-url"><strong>Senaste release:</strong><br><a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">github.com/villeolof1/schoolsoft-calendar-helper/releases/latest</a></p>
       </div>
       <div class="download-card">
-        <a class="button primary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe" download data-install-button>Ladda ned och installera</a>
+        <a class="button primary wide" href="#downloads">Välj nedladdning</a>
         <a class="button secondary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">Öppna senaste release</a>
         <a class="button secondary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper/issues">Rapportera problem</a>
         <a class="button secondary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper">Visa källkod</a>
@@ -103,15 +130,15 @@
       <p class="eyebrow">Frågor</p>
       <details open>
         <summary>Varför installeras den inte helt automatiskt i webbläsaren?</summary>
-        <p>Webbläsare får inte starta och installera program helt tyst. Knappen laddar ned installern; därefter behöver du öppna filen och godkänna installationen i Windows.</p>
+        <p>Webbläsare får inte starta och installera program helt tyst. Knappen laddar ned installern; därefter behöver du öppna filen och godkänna installationen på datorn.</p>
+      </details>
+      <details>
+        <summary>Fungerar det på alla datorer?</summary>
+        <p>Målet är Windows, macOS och Linux. Varje plattform behöver en egen byggd fil, och de första versionerna måste testas på rena datorer. macOS och Windows kan visa säkerhetsvarningar tills appen är kodsignerad.</p>
       </details>
       <details>
         <summary>Är detta en officiell SchoolSoft-app?</summary>
         <p>Nej. Det är ett inofficiellt, öppet verktyg för lokal användning av data du själv är behörig att se.</p>
-      </details>
-      <details>
-        <summary>Varför kan Windows varna vid installation?</summary>
-        <p>Appen är inte kodsignerad ännu. Därför kan Windows SmartScreen visa en varning trots att källkoden är öppen.</p>
       </details>
       <details>
         <summary>Vad händer om SchoolSoft ligger nere?</summary>
@@ -122,7 +149,7 @@
 
   <footer class="footer">
     <span>SchoolSoft Calendar Helper</span>
-    <a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe" data-install-button>Download</a>
+    <a href="#downloads">Download</a>
     <a href="https://github.com/villeolof1/schoolsoft-calendar-helper">GitHub</a>
     <a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">Releases</a>
   </footer>
