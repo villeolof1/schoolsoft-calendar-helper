@@ -1,9 +1,9 @@
 import { chromium } from 'playwright';
-import { ensureDirs, resolveProjectPath } from './config.js';
+import { ensureDirs, resolveDataPath } from './config.js';
 
 export async function openPersistentBrowser(config) {
   ensureDirs();
-  const userDataDir = resolveProjectPath('.playwright-user-data');
+  const userDataDir = resolveDataPath('.playwright-user-data');
   const forcedHeadless = process.env.SCHOOLSOFT_HEADLESS;
   const backgroundDefault = config.backgroundHeadless ?? false;
   const headless = forcedHeadless != null
