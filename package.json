@@ -13,9 +13,10 @@
     "start:no-auto": "node server.js --no-auto",
     "start:desktop": "node scripts/desktop-sidecar.js",
     "check": "node scripts/check.js",
+    "ensure:icons": "node scripts/ensure-tauri-icon.js",
     "build:sidecar": "node scripts/build-sidecar.js",
-    "desktop:dev": "tauri dev",
-    "desktop:build": "tauri build"
+    "desktop:dev": "npm run ensure:icons && tauri dev",
+    "desktop:build": "npm run ensure:icons && tauri build"
   },
   "dependencies": {
     "playwright": "^1.56.0"
