@@ -82,7 +82,7 @@ a { color: inherit; }
 
 .install-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.78fr);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
   gap: 34px;
   align-items: center;
   padding: 58px 0 44px;
@@ -122,39 +122,73 @@ h3 { margin-bottom: 8px; letter-spacing: -0.025em; }
 
 .install-panel {
   margin-top: 26px;
-  max-width: 650px;
-  padding: 14px;
+  max-width: 760px;
+  padding: 16px;
   border: 1px solid rgba(54,92,255,0.18);
   border-radius: 28px;
   background: #eef2ff;
   box-shadow: 0 14px 38px rgba(54,92,255,0.12);
 }
-.install-button {
+.panel-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.panel-heading h2 {
+  margin-bottom: 0;
+  font-size: clamp(1.45rem, 2.4vw, 2.2rem);
+}
+.platform-grid {
   display: grid;
-  gap: 3px;
-  width: 100%;
-  min-height: 76px;
-  padding: 18px 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.platform-card {
+  display: grid;
+  gap: 5px;
+  min-height: 118px;
+  padding: 16px;
+  border: 1px solid rgba(16,24,40,0.08);
   border-radius: 20px;
+  background: #fff;
+  color: var(--text);
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(16,24,40,0.06);
+  transition: transform 100ms ease, border-color 100ms ease, box-shadow 100ms ease;
+}
+.platform-card.recommended {
   background: #111827;
   color: #fff;
-  text-decoration: none;
   box-shadow: 0 14px 32px rgba(17,24,39,0.22);
 }
-.install-button span {
-  font-size: clamp(1.28rem, 2.4vw, 1.75rem);
-  font-weight: 950;
-  letter-spacing: -0.035em;
+.platform-card:hover { transform: translateY(-1px); border-color: rgba(54,92,255,0.32); }
+.platform-card:active { transform: translateY(0) scale(0.99); }
+.platform-label {
+  width: fit-content;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: var(--accent-dark);
+  font-size: 0.72rem;
+  font-weight: 900;
 }
-.install-button small {
-  color: rgba(255,255,255,0.76);
-  font-size: 0.92rem;
-  font-weight: 750;
+.platform-card.recommended .platform-label {
+  background: rgba(255,255,255,0.14);
+  color: #fff;
 }
-.install-button:hover,
-.button:hover { transform: translateY(-1px); }
-.install-button:active,
-.button:active { transform: translateY(0) scale(0.99); }
+.platform-card strong {
+  font-size: clamp(1.08rem, 1.6vw, 1.35rem);
+  letter-spacing: -0.025em;
+}
+.platform-card small {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+.platform-card.recommended small { color: rgba(255,255,255,0.76); }
 .install-help {
   margin: 12px 0 0;
   padding: 12px 13px;
@@ -190,9 +224,7 @@ h3 { margin-bottom: 8px; letter-spacing: -0.025em; }
   background: rgba(255,255,255,0.82);
 }
 .quick-steps strong,
-.quick-steps span {
-  display: block;
-}
+.quick-steps span { display: block; }
 .quick-steps strong { margin-bottom: 5px; }
 .quick-steps span {
   color: var(--muted);
@@ -222,6 +254,8 @@ h3 { margin-bottom: 8px; letter-spacing: -0.025em; }
   border-color: var(--line);
 }
 .button.wide { width: 100%; }
+.button:hover { transform: translateY(-1px); }
+.button:active { transform: translateY(0) scale(0.99); }
 
 .app-card {
   border: 1px solid var(--line);
@@ -297,9 +331,7 @@ h3 { margin-bottom: 8px; letter-spacing: -0.025em; }
   font-size: 0.72rem;
 }
 
-.section {
-  padding: 72px 18px;
-}
+.section { padding: 72px 18px; }
 .steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -392,13 +424,14 @@ h3 { margin-bottom: 8px; letter-spacing: -0.025em; }
 }
 
 @media (max-width: 680px) {
-  .quick-steps { grid-template-columns: 1fr; }
+  .quick-steps,
+  .platform-grid { grid-template-columns: 1fr; }
+  .panel-heading { display: grid; }
 }
 
 @media (max-width: 560px) {
   .hero { padding: 10px; }
   .section { padding: 46px 10px; }
-  .install-button,
   .button { width: 100%; }
   .metric-row { grid-template-columns: 1fr; }
   .day { min-height: 62px; font-size: 0.8rem; }
