@@ -28,6 +28,7 @@ a { color: inherit; }
     var(--bg);
 }
 .nav,
+.download-strip,
 .hero-grid,
 .section,
 .footer {
@@ -72,13 +73,61 @@ a { color: inherit; }
 }
 .nav-links a { text-decoration: none; }
 .nav-links a:hover { color: var(--text); }
+.download-link {
+  color: #fff !important;
+  background: #111827;
+  border-radius: 999px;
+  padding: 8px 12px;
+}
+.download-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(54,92,255,0.18);
+  border-radius: 24px;
+  background: #eef2ff;
+  box-shadow: 0 8px 28px rgba(54,92,255,0.08);
+}
+.download-strip strong,
+.download-strip span {
+  display: block;
+}
+.download-strip strong { font-size: 1.02rem; }
+.download-strip span { color: var(--muted); font-size: 0.9rem; margin-top: 2px; }
+.download-strip-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.plain-link {
+  color: var(--accent-dark);
+  font-weight: 850;
+  font-size: 0.9rem;
+}
+.installer-url {
+  margin-top: 18px;
+  padding: 13px 14px;
+  border: 1px solid rgba(16,42,154,0.12);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.72);
+  overflow-wrap: anywhere;
+}
+.installer-url a {
+  color: var(--accent-dark);
+  font-weight: 750;
+}
 
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.82fr);
   gap: 34px;
   align-items: center;
-  padding: 78px 0 44px;
+  padding: 64px 0 44px;
 }
 .eyebrow {
   margin: 0 0 10px;
@@ -299,17 +348,20 @@ h3 { margin-bottom: 8px; letter-spacing: -0.025em; }
 @media (max-width: 900px) {
   .nav { align-items: flex-start; }
   .nav-links { display: none; }
+  .download-strip { display: grid; }
+  .download-strip-actions { justify-content: start; }
   .hero-grid,
   .split,
   .steps { grid-template-columns: 1fr; }
-  .hero-grid { padding-top: 46px; }
+  .hero-grid { padding-top: 36px; }
   .app-card { order: -1; }
 }
 
 @media (max-width: 560px) {
   .hero { padding: 10px; }
   .section { padding: 46px 10px; }
-  .actions { display: grid; }
+  .actions,
+  .download-strip-actions { display: grid; }
   .button { width: 100%; }
   .metric-row { grid-template-columns: 1fr; }
   .day { min-height: 62px; font-size: 0.8rem; }
