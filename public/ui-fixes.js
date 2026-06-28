@@ -23,3 +23,11 @@
   document.addEventListener('click', () => setTimeout(trimFullyBlankMonthWeeks, 0), true);
   setInterval(trimFullyBlankMonthWeeks, 1000);
 })();
+
+// Load the richer sync-progress panel after the main app has mounted.
+(() => {
+  const script = document.createElement('script');
+  script.src = '/sync-progress.js';
+  script.defer = true;
+  document.body.appendChild(script);
+})();
