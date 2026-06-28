@@ -30,8 +30,8 @@
         <p class="lead">SchoolSoft Calendar Helper hjälper elever och föräldrar att hitta prov, inlämningar, redovisningar och andra viktiga datum utan att behöva leta runt i SchoolSoft.</p>
 
         <div class="status-note">
-          <strong>Tidigt testbygge</strong>
-          <span>Appen är inofficiell och osignerad just nu. Windows och macOS kan därför visa säkerhetsvarningar. På Windows kan du vanligtvis klicka <strong>Mer information</strong> och sedan <strong>Kör ändå</strong>.</span>
+          <strong>Viktigt om Windows-varningen</strong>
+          <span>Windows kan visa <strong>“Windows protected your PC”</strong> eftersom appen är ny och inte kodsignerad ännu. För att fortsätta: klicka <strong>More info</strong> / <strong>Mer information</strong> och sedan <strong>Run anyway</strong> / <strong>Kör ändå</strong>.</span>
         </div>
 
         <div id="downloads" class="install-panel">
@@ -72,7 +72,7 @@
 
         <ol class="quick-steps" aria-label="Snabb installation">
           <li><strong>1. Ladda ned</strong><span>Välj rätt fil för din dator.</span></li>
-          <li><strong>2. Öppna filen</strong><span>Godkänn eventuella säkerhetsvarningar.</span></li>
+          <li><strong>2. Öppna filen</strong><span>Vid Windows-varning: More info → Run anyway.</span></li>
           <li><strong>3. Logga in</strong><span>Appen öppnar SchoolSofts egen inloggningssida.</span></li>
         </ol>
       </div>
@@ -135,12 +135,16 @@
     <section id="questions" class="section faq compact-section">
       <p class="eyebrow">Frågor</p>
       <details open>
-        <summary>Windows visar “Windows protected your PC”. Hur startar jag ändå?</summary>
-        <p>Klicka <strong>More info</strong> / <strong>Mer information</strong>. Då brukar knappen <strong>Run anyway</strong> / <strong>Kör ändå</strong> visas. Klicka på den för att fortsätta. Varningen visas eftersom appen är ny och osignerad, inte nödvändigtvis för att Windows har hittat skadlig kod.</p>
+        <summary>Windows visar “Windows protected your PC”. Vad gör jag?</summary>
+        <p>Klicka <strong>More info</strong> eller <strong>Mer information</strong>. Då visas normalt knappen <strong>Run anyway</strong> eller <strong>Kör ändå</strong>. Klicka på den för att starta installern.</p>
       </details>
       <details open>
         <summary>Varför visas SmartScreen-varningen?</summary>
-        <p>Appen är inte kodsignerad ännu och har ingen etablerad Microsoft SmartScreen-reputation. För en bredare publik behöver appen signeras med ett kodsigneringscertifikat.</p>
+        <p>Varningen visas eftersom appen är ny, okänd för Microsoft SmartScreen och ännu inte kodsignerad. Det betyder inte automatiskt att Windows har hittat skadlig kod. För en bredare publik behöver appen signeras med ett kodsigneringscertifikat.</p>
+      </details>
+      <details open>
+        <summary>Varför är det rimligt att fortsätta ändå?</summary>
+        <p>Fortsätt bara om du har laddat ned appen från den här officiella GitHub-sidan eller från projektets senaste GitHub Release. Källkoden är öppen, appen körs lokalt på din dator, och SchoolSoft-data skickas inte till utvecklaren. Som med alla osignerade testbyggen bör du inte köra filer från andra länkar eller okända källor.</p>
       </details>
       <details open>
         <summary>Varför installeras appen inte helt automatiskt i webbläsaren?</summary>
