@@ -21,7 +21,7 @@ console.log(`Building desktop sidecar for ${targetTriple} using pkg target ${tar
 
 execFileSync('npx', [
   'pkg',
-  'scripts/desktop-sidecar.js',
+  'scripts/desktop-sidecar.cjs',
   '--targets', target,
   '--sea',
   '--no-bytecode',
