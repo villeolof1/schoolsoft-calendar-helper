@@ -139,7 +139,6 @@
     <div id="drawerContent" class="drawer-content"></div>
   </aside>
 
-
   <div id="privacyModal" class="privacy-modal hidden" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
     <div class="privacy-card">
       <p class="eyebrow">Första start</p>
@@ -148,8 +147,9 @@
       <ul>
         <li><strong>SchoolSoft-data skickas inte till oss.</strong> Vi har ingen central server som tar emot kalenderdata, anteckningar, cookies eller inloggning.</li>
         <li>Den lokala servern på <code>localhost</code> körs bara på din egen dator för att appen ska fungera.</li>
+        <li>SchoolSoft öppnas inte förrän du har godkänt den här informationen och själv klickar på <strong>Logga in</strong> eller <strong>Synka nu</strong>.</li>
         <li>SchoolSoft-lösenord sparas inte i appens kod eller konfiguration. Inloggning sker i SchoolSofts egen sida.</li>
-        <li>Kalenderdata sparas lokalt i appmappen, till exempel i <code>data/events.json</code>.</li>
+        <li>Kalenderdata sparas lokalt på den här datorn, i projektmappen eller appens lokala datamapp beroende på hur appen körs.</li>
         <li>Anteckningar, egna händelser, markeringar och papperskorg sparas lokalt.</li>
         <li>Om du publicerar eller hostar en ändrad version där andra loggar in behövs separat juridisk/privacy-granskning och tillstånd.</li>
       </ul>
@@ -160,6 +160,7 @@
     </div>
   </div>
 
+  <script src="/privacy-gate.js"></script>
   <script src="/app.js" type="module"></script>
 </body>
 </html>
