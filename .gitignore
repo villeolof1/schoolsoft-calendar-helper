@@ -24,7 +24,9 @@ Thumbs.db
 .vscode/
 .idea/
 
-# future desktop packaging
+# desktop packaging
 src-tauri/target/
 src-tauri/gen/
+src-tauri/binaries/*
+!src-tauri/binaries/.gitkeep
 *.log

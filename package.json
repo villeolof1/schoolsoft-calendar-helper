@@ -13,8 +13,10 @@
     "start:no-auto": "node server.js --no-auto",
     "start:desktop": "node scripts/desktop-sidecar.js",
     "check": "node scripts/check.js",
-    "desktop:dev": "tauri dev",
-    "desktop:build": "tauri build"
+    "ensure:icons": "node scripts/ensure-tauri-icon.js",
+    "build:sidecar": "node scripts/build-sidecar.js",
+    "desktop:dev": "npm run ensure:icons && tauri dev",
+    "desktop:build": "npm run ensure:icons && tauri build"
   },
   "dependencies": {
     "playwright": "^1.56.0"
@@ -22,7 +24,8 @@
   "devDependencies": {
     "@tauri-apps/cli": "^2",
     "@tauri-apps/api": "^2",
-    "@tauri-apps/plugin-shell": "^2"
+    "@tauri-apps/plugin-shell": "^2",
+    "@yao-pkg/pkg": "^6.19.0"
   },
   "engines": {
     "node": ">=20"
@@ -35,5 +38,17 @@
   "bugs": {
     "url": "https://github.com/villeolof1/schoolsoft-calendar-helper/issues"
   },
-  "homepage": "https://villeolof1.github.io/schoolsoft-calendar-helper/"
+  "homepage": "https://villeolof1.github.io/schoolsoft-calendar-helper/",
+  "pkg": {
+    "scripts": [
+      "server.js",
+      "scripts/**/*.js"
+    ],
+    "assets": [
+      "public/**/*",
+      "schoolsoft.config.example.json",
+      "node_modules/playwright/**/*",
+      "node_modules/playwright-core/**/*"
+    ]
+  }
 }

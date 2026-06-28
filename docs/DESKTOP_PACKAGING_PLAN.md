@@ -15,7 +15,7 @@ Goal: make the app usable by normal parents without npm, terminals, or manual de
 
 The repository contains an initial Tauri desktop scaffold in `src-tauri/`.
 
-The current scaffold is useful for developer testing:
+Developer desktop mode:
 
 ```bash
 npm install
@@ -23,7 +23,16 @@ npm run install-browsers
 npm run desktop:dev
 ```
 
-`desktop:dev` now starts `npm run start:desktop`, which sets desktop mode before loading the local server. In desktop mode, writable data moves to the OS app-data directory rather than the source/app bundle directory.
+Installer build experiment:
+
+```bash
+npm install
+npm run install-browsers
+npm run build:sidecar
+npm run desktop:build
+```
+
+`desktop:dev` starts `npm run start:desktop`, which sets desktop mode before loading the local server. In desktop mode, writable data moves to the OS app-data directory rather than the source/app bundle directory.
 
 ## Completed in sidecar-prep step
 
@@ -33,6 +42,15 @@ npm run desktop:dev
 - Added an app-data storage layer for local config, events, last-run coverage, user notes, done state, trash state, snapshots, and the saved Playwright browser session.
 - Kept normal developer mode unchanged: `npm run start` still uses the project folder for local data.
 
+## Completed in sidecar packaging step
+
+- Added `npm run build:sidecar`.
+- Added `scripts/build-sidecar.js`, which uses `@yao-pkg/pkg` to package `scripts/desktop-sidecar.js` into a Windows sidecar executable.
+- The build script renames the output to Tauri's required target-triple format, for example `src-tauri/binaries/schoolsoft-backend-x86_64-pc-windows-msvc.exe`.
+- Added `bundle.externalBin` for `binaries/schoolsoft-backend`.
+- Added Rust startup code that spawns the packaged sidecar in production builds.
+- Kept generated sidecar binaries out of Git; they are build artifacts.
+
 ## Preferred route
 
 Use Tauri for a lightweight desktop shell around the existing frontend. The app still needs a local extraction component. The implementation should keep SchoolSoft credentials/session files on the user's machine and not introduce a central server.
@@ -41,13 +59,12 @@ Tauri's documented route for keeping a Node-based local backend is a sidecar: pa
 
 ## Remaining tasks
 
-1. Package the Node/Playwright backend sidecar into a platform-specific executable.
-2. Ensure Playwright/Chromium is available to that sidecar without a user running terminal commands.
-3. Configure Tauri `bundle.externalBin` for the packaged backend.
-4. Make packaged production builds start the sidecar automatically rather than using `beforeDevCommand`.
-5. Add GitHub Actions build for Windows installer first.
-6. Publish an unsigned beta release from GitHub Releases.
-7. Consider Windows/macOS code signing later for a smoother install experience.
+1. Test `npm run build:sidecar` on Windows.
+2. Test `npm run desktop:build` and install the generated unsigned NSIS installer.
+3. Ensure Playwright/Chromium is available to the sidecar without a user running terminal commands. The current developer workflow still uses `npm run install-browsers`; the final installer should bundle or bootstrap Chromium.
+4. Add GitHub Actions build for Windows installer first.
+5. Publish an unsigned beta release from GitHub Releases.
+6. Consider Windows/macOS code signing later for a smoother install experience.
 
 ## What not to do initially
 
