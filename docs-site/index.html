@@ -3,48 +3,46 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SchoolSoft Calendar Helper</title>
-  <meta name="description" content="En lokal, inofficiell app som hjälper elever och föräldrar att få bättre överblick över viktiga SchoolSoft-datum." />
+  <title>Installera SchoolSoft Calendar Helper</title>
+  <meta name="description" content="Ladda ned SchoolSoft Calendar Helper för Windows. En lokal, inofficiell app som hjälper elever och föräldrar att få bättre överblick över viktiga SchoolSoft-datum." />
   <link rel="stylesheet" href="./site.css" />
 </head>
 <body>
-  <header class="hero">
+  <header class="hero" id="top">
     <nav class="nav" aria-label="Huvudnavigering">
       <a class="brand" href="#top" aria-label="SchoolSoft Calendar Helper startsida">
         <span class="brand-mark">S</span>
         <span>SchoolSoft Calendar Helper</span>
       </a>
       <div class="nav-links">
-        <a class="download-link" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe">Ladda ned</a>
+        <a class="download-link" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe" data-install-button>Ladda ned appen</a>
         <a href="#how">Så fungerar det</a>
         <a href="#privacy">Integritet</a>
-        <a href="#install">Installera</a>
         <a href="https://github.com/villeolof1/schoolsoft-calendar-helper">Källkod</a>
       </div>
     </nav>
 
-    <section class="download-strip" aria-label="Snabb nedladdning">
-      <div>
-        <strong>Installera på Windows</strong>
-        <span>Senaste testversionen · lokal app · ingen SchoolSoft-data skickas till utvecklaren</span>
-      </div>
-      <div class="download-strip-actions">
-        <a class="button primary" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe">Ladda ned installer</a>
-        <a class="plain-link" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">Problem? Öppna senaste release</a>
-      </div>
-    </section>
+    <section class="install-hero" aria-label="Installera appen">
+      <div class="install-copy">
+        <p class="eyebrow">Windows-app · lokal · inofficiell</p>
+        <h1>Installera en tydligare SchoolSoft-kalender.</h1>
+        <p class="lead">En lokal app för elever och föräldrar som vill se prov, inlämningar, redovisningar och viktiga datum snabbare och tydligare.</p>
 
-    <main id="top" class="hero-grid">
-      <section class="hero-copy">
-        <p class="eyebrow">Lokal · inofficiell · öppen källkod</p>
-        <h1>En tydligare kalender för viktiga SchoolSoft-datum.</h1>
-        <p class="lead">SchoolSoft Calendar Helper körs på din egen dator och hjälper elever och föräldrar att se prov, inlämningar, redovisningar och andra viktiga datum i en renare kalender.</p>
-        <div class="actions">
-          <a class="button primary" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe">Ladda ned för Windows</a>
-          <a class="button secondary" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">Senaste release</a>
+        <div class="install-panel">
+          <a class="install-button" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe" download data-install-button>
+            <span>Installera på Windows</span>
+            <small>Laddar ned SchoolSoft-Calendar-Helper-Setup.exe</small>
+          </a>
+          <p id="installHelp" class="install-help" hidden>Nedladdningen bör starta nu. Öppna filen <strong>SchoolSoft-Calendar-Helper-Setup.exe</strong> i webbläsarens nedladdningar och följ installationsrutan.</p>
+          <p class="fallback-link">Fungerar inte knappen? <a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">Öppna senaste release på GitHub</a>.</p>
         </div>
-        <p class="note">Tidigt testbygge. Appen är inte signerad ännu, så Windows kan visa en SmartScreen-varning.</p>
-      </section>
+
+        <ol class="quick-steps" aria-label="Snabb installation">
+          <li><strong>1. Klicka Installera</strong><span>Installationsfilen laddas ned.</span></li>
+          <li><strong>2. Öppna .exe-filen</strong><span>Windows kan visa en varning eftersom appen inte är signerad ännu.</span></li>
+          <li><strong>3. Logga in i SchoolSoft</strong><span>Appen öppnar SchoolSofts egen inloggningssida.</span></li>
+        </ol>
+      </div>
 
       <section class="app-card" aria-label="Appöversikt">
         <div class="app-topbar"><span></span><span></span><span></span></div>
@@ -58,69 +56,77 @@
           <div class="day">6</div><div class="day has-event">7<span>SV inl.</span></div><div class="day">8</div><div class="day">9</div><div class="day has-event">10<span>EN red.</span></div><div class="day">11</div><div class="day muted">12</div>
         </div>
       </section>
-    </main>
+    </section>
   </header>
 
-  <section id="how" class="section">
-    <p class="eyebrow">Så fungerar det</p>
-    <h2>Installera, logga in, hämta kalendern.</h2>
-    <div class="steps">
-      <article><strong>1</strong><h3>Installera appen</h3><p>Ladda ned Windows-installern och öppna appen från Start-menyn.</p></article>
-      <article><strong>2</strong><h3>Logga in i SchoolSoft</h3><p>Appen öppnar SchoolSofts egen inloggningssida. Lösenord sparas inte i appens kod eller konfiguration.</p></article>
-      <article><strong>3</strong><h3>Se viktiga datum</h3><p>Appen visar sparad lokal data direkt och kan hämta ny kalenderdata när SchoolSoft är tillgängligt.</p></article>
-    </div>
-  </section>
+  <main>
+    <section id="how" class="section">
+      <p class="eyebrow">Så fungerar det</p>
+      <h2>Appen körs på din egen dator.</h2>
+      <div class="steps">
+        <article><strong>1</strong><h3>Installera</h3><p>Ladda ned Windows-installern och öppna appen från Start-menyn.</p></article>
+        <article><strong>2</strong><h3>Logga in</h3><p>Inloggningen sker på SchoolSofts egen sida. Appen sparar inte lösenord i kod eller konfiguration.</p></article>
+        <article><strong>3</strong><h3>Få överblick</h3><p>Se viktiga datum, markera saker som klara, lägg till anteckningar och visa sparad lokal data direkt.</p></article>
+      </div>
+    </section>
 
-  <section id="privacy" class="section split">
-    <div>
-      <p class="eyebrow">Integritet</p>
-      <h2>Byggd för lokal användning.</h2>
-      <p>Som appen distribueras här körs den på din dator. SchoolSoft-data, anteckningar och sparad webbläsarsession lagras lokalt på datorn.</p>
-    </div>
-    <ul class="check-list">
-      <li>Ingen central server tar emot SchoolSoft-data.</li>
-      <li>Inloggning sker på SchoolSofts egen sida.</li>
-      <li>Appen är inte en officiell SchoolSoft-produkt.</li>
-      <li>GitHub Pages kan hantera vanlig webbplatsloggning, till exempel IP-adresser, för själva nedladdningssidan.</li>
-    </ul>
-  </section>
+    <section id="privacy" class="section split">
+      <div>
+        <p class="eyebrow">Integritet</p>
+        <h2>Lokal först.</h2>
+        <p>Som appen distribueras här körs den på din dator. SchoolSoft-data, anteckningar och sparad webbläsarsession lagras lokalt på datorn.</p>
+      </div>
+      <ul class="check-list">
+        <li>Ingen central server tar emot SchoolSoft-data.</li>
+        <li>Inloggning sker på SchoolSofts egen sida.</li>
+        <li>Appen är inte en officiell SchoolSoft-produkt.</li>
+        <li>GitHub Pages kan hantera vanlig webbplatsloggning, till exempel IP-adresser, för själva nedladdningssidan.</li>
+      </ul>
+    </section>
 
-  <section id="install" class="section split install-box">
-    <div>
-      <p class="eyebrow">Installera</p>
-      <h2>Ladda ned senaste Windows-versionen.</h2>
-      <p>Första publika versionerna är testversioner. Testa gärna, men räkna med att SchoolSoft-tillgänglighet och Windows SmartScreen kan påverka upplevelsen.</p>
-      <p class="installer-url"><strong>Direktlänk:</strong><br><a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe">github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe</a></p>
-    </div>
-    <div class="download-card">
-      <a class="button primary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe">Ladda ned installer</a>
-      <a class="button secondary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">Öppna senaste release</a>
-      <a class="button secondary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper/issues">Rapportera problem</a>
-      <a class="button secondary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper">Visa källkod</a>
-    </div>
-  </section>
+    <section id="install" class="section split install-box">
+      <div>
+        <p class="eyebrow">Ladda ned</p>
+        <h2>Senaste Windows-installer.</h2>
+        <p>Knappen laddar ned filen <strong>SchoolSoft-Calendar-Helper-Setup.exe</strong>. Öppna den nedladdade filen för att installera appen.</p>
+        <p class="installer-url"><strong>Direktlänk:</strong><br><a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe">github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe</a></p>
+      </div>
+      <div class="download-card">
+        <a class="button primary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe" download data-install-button>Ladda ned och installera</a>
+        <a class="button secondary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">Öppna senaste release</a>
+        <a class="button secondary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper/issues">Rapportera problem</a>
+        <a class="button secondary wide" href="https://github.com/villeolof1/schoolsoft-calendar-helper">Visa källkod</a>
+      </div>
+    </section>
 
-  <section class="section faq">
-    <p class="eyebrow">Frågor</p>
-    <details open>
-      <summary>Är detta en officiell SchoolSoft-app?</summary>
-      <p>Nej. Det är ett inofficiellt, öppet verktyg för lokal användning av data du själv är behörig att se.</p>
-    </details>
-    <details>
-      <summary>Varför kan Windows varna vid installation?</summary>
-      <p>Appen är inte kodsignerad ännu. Därför kan Windows SmartScreen visa en varning trots att källkoden är öppen.</p>
-    </details>
-    <details>
-      <summary>Vad händer om SchoolSoft ligger nere?</summary>
-      <p>Appen kan fortfarande visa tidigare sparad lokal data, men kan inte hämta ny data förrän SchoolSoft fungerar igen.</p>
-    </details>
-  </section>
+    <section class="section faq">
+      <p class="eyebrow">Frågor</p>
+      <details open>
+        <summary>Varför installeras den inte helt automatiskt i webbläsaren?</summary>
+        <p>Webbläsare får inte starta och installera program helt tyst. Knappen laddar ned installern; därefter behöver du öppna filen och godkänna installationen i Windows.</p>
+      </details>
+      <details>
+        <summary>Är detta en officiell SchoolSoft-app?</summary>
+        <p>Nej. Det är ett inofficiellt, öppet verktyg för lokal användning av data du själv är behörig att se.</p>
+      </details>
+      <details>
+        <summary>Varför kan Windows varna vid installation?</summary>
+        <p>Appen är inte kodsignerad ännu. Därför kan Windows SmartScreen visa en varning trots att källkoden är öppen.</p>
+      </details>
+      <details>
+        <summary>Vad händer om SchoolSoft ligger nere?</summary>
+        <p>Appen kan fortfarande visa tidigare sparad lokal data, men kan inte hämta ny data förrän SchoolSoft fungerar igen.</p>
+      </details>
+    </section>
+  </main>
 
   <footer class="footer">
     <span>SchoolSoft Calendar Helper</span>
-    <a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe">Download</a>
+    <a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest/download/SchoolSoft-Calendar-Helper-Setup.exe" data-install-button>Download</a>
     <a href="https://github.com/villeolof1/schoolsoft-calendar-helper">GitHub</a>
     <a href="https://github.com/villeolof1/schoolsoft-calendar-helper/releases/latest">Releases</a>
   </footer>
+
+  <script src="./install.js"></script>
 </body>
 </html>
