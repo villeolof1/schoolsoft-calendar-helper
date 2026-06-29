@@ -24,10 +24,13 @@
   setInterval(trimFullyBlankMonthWeeks, 1000);
 })();
 
-// Load the richer sync-progress panel after the main app has mounted.
-(() => {
+function loadHelperScript(src) {
   const script = document.createElement('script');
-  script.src = '/sync-progress.js';
+  script.src = src;
   script.defer = true;
   document.body.appendChild(script);
-})();
+}
+
+// Load small progressive enhancements after the main app has mounted.
+loadHelperScript('/sync-progress.js');
+loadHelperScript('/empty-sync-state.js');
