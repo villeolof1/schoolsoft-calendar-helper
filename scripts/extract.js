@@ -21,7 +21,7 @@ try {
   await page.waitForTimeout(2200);
   if (await isProbablyLoginPage(page)) {
     if (process.env.SCHOOLSOFT_BACKGROUND_SYNC) {
-      throw new Error('SchoolSoft login is needed. Run npm run login, log in, then click Synka nu.');
+      throw new Error('SchoolSoft login is needed. Click Synka nu and complete login in the opened browser window.');
     }
     console.log('\nSchoolSoft login is needed. Log in in the opened browser window.');
     console.log('Take your time — this browser window will stay open until you press Enter here.');
@@ -46,16 +46,16 @@ try {
   const merged = mergeEvents(collected, { requestedMonth, loadedMonths, partial: false });
   if (collected.length === 0) {
     const diagPath = networkCapture.saveDiagnostics('network-diagnostics-no-events-final');
-    console.log(`No events found in captured API responses. Saved diagnostics here: ${diagPath}`);
-    console.log(`Local data still contains ${merged.length} known event(s).`);
-    process.exitCode = merged.length ? 0 : 1;
+    console.log(`No assignments or tests found in captured SchoolSoft calendar responses. Saved diagnostics here: ${diagPath}`);
+    console.log(`Sync completed successfully with an empty result. Local data still contains ${merged.length} known event(s).`);
+    process.exitCode = 0;
   } else {
     console.log(`Done. Wrote ${merged.length} known event(s) to data/events.json.`);
     console.log('Start or refresh the dashboard with: npm run start');
   }
 } catch (error) {
   console.error('\nExtraction failed:', error.message);
-  console.error('Run npm run login if the SchoolSoft session has expired, then try again.');
+  console.error('If the SchoolSoft session has expired, click Synka nu and finish login in the opened browser window.');
   process.exitCode = 1;
 } finally {
   await context.close().catch(() => {});
